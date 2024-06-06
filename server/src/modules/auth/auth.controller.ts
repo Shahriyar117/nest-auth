@@ -1,4 +1,10 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from './schemas/user.schema';
 
@@ -18,7 +24,10 @@ export class AuthController {
       );
       return user;
     } catch (error) {
-      console.log(error);
+      throw new HttpException(
+        'Failed to register',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
@@ -31,7 +40,10 @@ export class AuthController {
       );
       return this.authService.signIn(user);
     } catch (error) {
-      console.log(error);
+      throw new HttpException(
+        'Failed to login',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }
