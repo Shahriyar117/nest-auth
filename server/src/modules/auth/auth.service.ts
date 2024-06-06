@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
@@ -19,8 +19,9 @@ export class AuthService {
   ): Promise<User> {
     const existingUser = await this.userModel.findOne({ email });
     if (existingUser) {
-      console.log('User already exists');
+      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new this.userModel({
       username,
@@ -34,12 +35,12 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.userModel.findOne({ email });
     if (!user) {
-      console.log('User not found');
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      console.log('Invalid credentials');
+      throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
     }
 
     return user;
