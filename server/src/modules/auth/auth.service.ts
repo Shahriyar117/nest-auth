@@ -13,6 +13,10 @@ export class AuthService {
     email: string,
     password: string,
   ): Promise<User> {
+    const existingUser = await this.userModel.findOne({ email });
+    if (existingUser) {
+      console.log('User already exists');
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new this.userModel({
       username,
@@ -21,5 +25,24 @@ export class AuthService {
     });
 
     return user.save();
+  }
+
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.userModel.findOne({ email });
+    if (!user) {
+      console.log('User not found');
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      console.log('Invalid credentials');
+    }
+
+    return user;
+  }
+
+  async signIn(user: User) {
+    const payload = { username: user.username, sub: user._id };
+    return payload;
   }
 }

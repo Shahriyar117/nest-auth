@@ -21,4 +21,17 @@ export class AuthController {
       console.log(error);
     }
   }
+
+  @Post('signin')
+  async signIn(@Body() body: { email: string; password: string }) {
+    try {
+      const user = await this.authService.validateUser(
+        body.email,
+        body.password,
+      );
+      return this.authService.signIn(user);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
