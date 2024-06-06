@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
+import { UserDto, toUserDto } from './dtos/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
     username: string,
     email: string,
     password: string,
-  ): Promise<User> {
+  ): Promise<UserDto> {
     const existingUser = await this.userModel.findOne({ email });
     if (existingUser) {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
@@ -29,7 +30,8 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    return user.save();
+    const savedUser = await user.save();
+    return toUserDto(savedUser);
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
