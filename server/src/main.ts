@@ -5,6 +5,7 @@ import { HttpExceptionFilter } from './common/exceptions/http-exception.filter';
 import { LogFileOptions } from './common/constants';
 import { WinstonModule } from 'nest-winston';
 import helmet from 'helmet';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
   const logger = winston.createLogger({
@@ -25,6 +26,15 @@ async function bootstrap() {
       ],
     }),
   });
+
+  const corsOptions: CorsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization',
+    credentials: true,
+  };
+
+  app.enableCors(corsOptions);
 
   app.useGlobalFilters(new HttpExceptionFilter(logger));
 
