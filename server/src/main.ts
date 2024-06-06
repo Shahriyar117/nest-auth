@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/exceptions/http-exception.filter';
 import { LogFileOptions } from './common/constants';
 import { WinstonModule } from 'nest-winston';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const logger = winston.createLogger({
@@ -26,6 +27,9 @@ async function bootstrap() {
   });
 
   app.useGlobalFilters(new HttpExceptionFilter(logger));
+
+  app.use(helmet());
+
   await app.listen(3000);
 }
 bootstrap();
