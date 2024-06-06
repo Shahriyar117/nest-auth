@@ -6,7 +6,7 @@ export const LogFileOptions = {
     filename: `${path}/logs/app.log`,
     handleExceptions: true,
     json: true,
-    maxsize: 5242880, // 5MB
+    maxsize: 5242880,
     maxFiles: 100,
     colorize: false,
   },
@@ -15,7 +15,7 @@ export const LogFileOptions = {
     filename: `${path}/logs/error.log`,
     handleExceptions: true,
     json: true,
-    maxsize: 5242880, // 5MB
+    maxsize: 5242880,
     maxFiles: 100,
     colorize: false,
   },
