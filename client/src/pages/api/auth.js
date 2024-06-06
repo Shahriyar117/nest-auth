@@ -3,7 +3,7 @@ import axios from "axios";
 export const Signup = async (userData) => {
   try {
     const response = await axios.post(
-      `${process.env.BASE_URL}/auth/signup`,
+      `${process.env.REACT_APP_BASE_URL}/auth/signup`,
       userData
     );
     return response.data;
@@ -15,7 +15,7 @@ export const Signup = async (userData) => {
 export const Login = async (credentials) => {
   try {
     const response = await axios.post(
-      `${process.env.BASE_URL}/auth/signin`,
+      `${process.env.REACT_APP_BASE_URL}/auth/signin`,
       credentials
     );
     return response.data;
