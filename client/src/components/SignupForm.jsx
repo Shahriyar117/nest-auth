@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../context/AuthContext";
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
@@ -28,6 +29,7 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
+  const { handleSignup } = useAuth();
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -48,7 +50,7 @@ const SignupForm = () => {
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          console.log("Signup form submitted with data:", values);
+          await handleSignup(values);
           navigate("/login");
         } catch (error) {
           console.error("Signup failed:", error.message);
