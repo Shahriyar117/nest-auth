@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This is a React application that includes login and signup functionalities with protected routes. The application manages authentication state using React Context.
 
-In the project directory, you can run:
+## Components
 
-### `npm start`
+### LoginForm
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- This component renders the login form.
+- It handles user input and form submission to log in the user.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### SignupForm
 
-### `npm test`
+- This component renders the signup form.
+- It handles user input and form submission to register a new user.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Pages
 
-### `npm run build`
+### Login
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- This page contains the `LoginForm` component.
+- Route: `/login`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Signup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- This page contains the `SignupForm` component.
+- Route: `/signup`
 
-### `npm run eject`
+### Home
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- This page contains the `Welcome to the application.`
+- Route: `/`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Context
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### AuthContext
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- This context manages the authentication state of the user.
+- It provides methods to log in and log out, and holds the current user's information.
 
-## Learn More
+## Utilities
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### ProtectedRoute
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- A higher-order component that wraps around routes that should only be accessible to authenticated users.
+- If the user is not authenticated, it redirects to the login page.
 
-### Code Splitting
+### AppRoute
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- This component sets up the main routing logic for the application.
+- It includes both public and protected routes.
 
-### Analyzing the Bundle Size
+## App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- The main application component that initializes the `AppRoute` component.
 
-### Making a Progressive Web App
+## Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Prerequisites
 
-### Advanced Configuration
+- Node.js
+- npm (Node Package Manager)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Installation
 
-### Deployment
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   cd client
+   ```
+2. Install the dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+   ```bash
+   npm install
+   ```
 
-### `npm run build` fails to minify
+3. Set up environment variables by creating a `.env` file in the root directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```bash
+   touch .env
+   ```
+
+   Add the following variables to the `.env` file:
+
+   ```env
+   REACT_APP_BASE_URL=<server-uri>
+   ```
+
+## Running the Application
+
+1. Run the React application:
+   ```bash
+   npm start
+   ```

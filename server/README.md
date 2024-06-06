@@ -25,6 +25,7 @@ This is a NestJS application that provides authentication endpoints using MongoD
    ```bash
    git clone <repository-url>
    cd <repository-directory>
+   cd server
    ```
 
 2. Install the dependencies:
