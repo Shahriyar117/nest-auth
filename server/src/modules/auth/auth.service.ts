@@ -52,4 +52,8 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async findUserById(userId: string): Promise<User | null> {
+    return this.userModel.findById(userId).exec();
+  }
 }
